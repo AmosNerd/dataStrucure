@@ -32,4 +32,8 @@ public class AvlTree<T extends Comparable<T>>{
             return null;
     }
 
+    public static void main(String[] args) {
+       int a= 0x2d;
+       int b=067575;
+    }
 }
