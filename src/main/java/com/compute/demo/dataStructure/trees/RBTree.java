@@ -119,10 +119,20 @@ public class RBTree<T extends Comparable<T>> {
                     node=gParent;
                     continue;
                 }
-                //叔叔节点是黑色，而且当前节点是右孩子
+                //叔叔节点是黑色，而且当前节点是右孩子,即祖、父、子三点在一条之字型线上
                 if(parent.right==node) {
+                    //左旋子树，把两个红节点和其祖节点的连到一条线上，然后走下一步，并把当前节点转移到原父节点上
                     RBNode<T> tmp;
+                    leftRotate(parent);
+                    tmp=parent;
+                    parent=node;
+                    node=tmp;
                 }
+                //这就是那个（下一步），此时三点在一线上
+                parent.isRed=false;
+                parent.isRed=true;
+                leftRotate(gParent);
+
 
             }
 
