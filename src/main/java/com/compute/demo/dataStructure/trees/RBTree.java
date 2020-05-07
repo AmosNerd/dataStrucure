@@ -111,34 +111,61 @@ public class RBTree<T extends Comparable<T>> {
                  * 在父节点和叔节点都是红色的时候，把他俩都涂黑，并且把祖父节点涂黑；
                  * 因为此时祖父节点和它的父节点都变成红色，这时以祖父节点为当前节点，往上变色
                  */
-                RBNode<T>uncle=gParent.right;
-                if((uncle!=null)&&uncle.isRed){
-                    uncle.isRed=false;
-                    parent.isRed=false;
-                    gParent.isRed=true;
-                    node=gParent;
+                RBNode<T> uncle = gParent.right;
+                if ((uncle != null) && uncle.isRed) {
+                    uncle.isRed = false;
+                    parent.isRed = false;
+                    gParent.isRed = true;
+                    node = gParent;
                     continue;
                 }
                 //叔叔节点是黑色，而且当前节点是右孩子,即祖、父、子三点在一条之字型线上
-                if(parent.right==node) {
+                if (parent.right == node) {
                     //左旋子树，把两个红节点和其祖节点的连到一条线上，然后走下一步，并把当前节点转移到原父节点上
                     RBNode<T> tmp;
                     leftRotate(parent);
-                    tmp=parent;
-                    parent=node;
-                    node=tmp;
+                    tmp = parent;
+                    parent = node;
+                    node = tmp;
                 }
                 //这就是那个（下一步），此时三点在一线上
-                parent.isRed=false;
-                parent.isRed=true;
-                leftRotate(gParent);
-
-
-            }
+                parent.isRed = false;
+                gParent.isRed = true;
+                rightRotate(gParent);
+            } else
+                //右子树
+                if (parent == gParent.right) {
+                    RBNode<T> uncle = gParent.left;
+                    if (uncle != null && uncle.isRed) {
+                        uncle.isRed = false;
+                        parent.isRed = false;
+                        gParent.isRed = true;
+                        node = gParent;
+                        continue;
+                    }
+                    if (parent.left == node) {
+                        RBNode<T> tmp;
+                        rightRotate(parent);
+                        tmp = parent;
+                        gParent = node;
+                        node = tmp;
+                    }
+                    parent.isRed = false;
+                    parent.isRed = true;
+                    leftRotate(gParent);
+                }
 
 
         }
+        this.root.isRed = false;
+    }
+    private void remove(RBNode<T> node){
+        RBNode<T>child,parent;
+        boolean color;
+        //左右节点都不为空
+        if(node.left!=null&&node.right!=null){
 
+        }
 
     }
 }
